@@ -74,7 +74,7 @@ function ReceiptDish({ dish, palette, qty, onAdd, last }) {
       padding: '20px 0',
       borderBottom: last ? 'none' : `0.5px dashed ${palette.line}`,
     }}>
-      <DishSwatch a={dish.swatchA} b={dish.swatchB} label={dish.name} small />
+      <DishSwatch a={dish.swatchA} b={dish.swatchB} image={dish.image} label={dish.name} small />
       <div>
         <h3 style={{
           fontFamily: '"Fraunces", serif', fontWeight: 400,

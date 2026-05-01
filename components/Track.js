@@ -34,7 +34,7 @@ export default function TrackScreen({ palette, simranName, onReset, dishes, cart
           letterSpacing: '-0.025em', margin: '0 0 40px 0',
         }}>
           Chef arrives in <em style={{ fontStyle: 'italic', color: palette.accent }}>
-            {remaining === 0 ? 'a moment' : `${remaining} min`}
+            5 days
           </em>
         </h1>
 

@@ -98,7 +98,7 @@ export default function CartScreen({ palette, dishes, cart, setCart, notes, setN
                 borderBottom: `0.5px solid ${palette.line}`,
                 alignItems: 'start',
               }}>
-                <DishSwatch a={d.swatchA} b={d.swatchB} label={d.name} square />
+                <DishSwatch a={d.swatchA} b={d.swatchB} image={d.image} label={d.name} square />
                 <div style={{ minWidth: 0 }}>
                   <h3 style={{
                     fontFamily: '"Fraunces", serif', fontWeight: 400,

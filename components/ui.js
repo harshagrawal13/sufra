@@ -1,17 +1,37 @@
 'use client';
 import React from 'react';
 
-export function DishSwatch({ a, b, label, height = 220, square = false, small = false }) {
+export function DishSwatch({ a, b, label, image, height = 220, square = false, small = false }) {
   const id = React.useId().replace(/[:]/g, '');
+  const wrapStyle = {
+    position: 'relative',
+    width: '100%',
+    aspectRatio: square ? '1 / 1' : (small ? '1 / 1' : 'auto'),
+    height: square || small ? undefined : height,
+    overflow: 'hidden',
+    background: image ? '#faf7f0' : a,
+  };
+
+  if (image) {
+    return (
+      <div style={wrapStyle}>
+        <img
+          src={image}
+          alt={label}
+          style={{
+            position: 'absolute', inset: 0,
+            width: '100%', height: '100%',
+            objectFit: 'contain',
+            padding: small ? 6 : 12,
+            display: 'block',
+          }}
+        />
+      </div>
+    );
+  }
+
   return (
-    <div style={{
-      position: 'relative',
-      width: '100%',
-      aspectRatio: square ? '1 / 1' : (small ? '1 / 1' : 'auto'),
-      height: square || small ? undefined : height,
-      overflow: 'hidden',
-      background: a,
-    }}>
+    <div style={wrapStyle}>
       <svg width="100%" height="100%" preserveAspectRatio="none"
            style={{ position: 'absolute', inset: 0, display: 'block' }}>
         <defs>

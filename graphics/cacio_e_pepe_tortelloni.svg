@@ -1,0 +1,76 @@
+<svg viewBox="0 0 600 500" xmlns="http://www.w3.org/2000/svg">
+  <rect width="600" height="500" fill="#ffffff"/>
+
+  <!-- Plate -->
+  <ellipse cx="300" cy="295" rx="240" ry="80" fill="#ffffff" stroke="#000000" stroke-width="3"/>
+  <ellipse cx="300" cy="290" rx="190" ry="55" fill="#ffffff" stroke="#000000" stroke-width="3"/>
+
+  <!-- Tortelloni: little folded rings -->
+  <g stroke="#000000" stroke-width="2" fill="#f4d65a">
+    <!-- tortelloni 1 -->
+    <g transform="translate(200,290)">
+      <path d="M-25,0 Q-20,-18 0,-15 Q20,-18 25,0 Q15,8 0,5 Q-15,8 -25,0 Z"/>
+      <path d="M-12,-8 Q0,-3 12,-8" fill="none"/>
+    </g>
+    <!-- tortelloni 2 -->
+    <g transform="translate(265,275) rotate(-10)">
+      <path d="M-25,0 Q-20,-18 0,-15 Q20,-18 25,0 Q15,8 0,5 Q-15,8 -25,0 Z"/>
+      <path d="M-12,-8 Q0,-3 12,-8" fill="none"/>
+    </g>
+    <!-- tortelloni 3 -->
+    <g transform="translate(335,300) rotate(15)">
+      <path d="M-25,0 Q-20,-18 0,-15 Q20,-18 25,0 Q15,8 0,5 Q-15,8 -25,0 Z"/>
+      <path d="M-12,-8 Q0,-3 12,-8" fill="none"/>
+    </g>
+    <!-- tortelloni 4 -->
+    <g transform="translate(400,278) rotate(-20)">
+      <path d="M-25,0 Q-20,-18 0,-15 Q20,-18 25,0 Q15,8 0,5 Q-15,8 -25,0 Z"/>
+      <path d="M-12,-8 Q0,-3 12,-8" fill="none"/>
+    </g>
+    <!-- tortelloni 5 -->
+    <g transform="translate(230,310) rotate(8)">
+      <path d="M-25,0 Q-20,-18 0,-15 Q20,-18 25,0 Q15,8 0,5 Q-15,8 -25,0 Z"/>
+      <path d="M-12,-8 Q0,-3 12,-8" fill="none"/>
+    </g>
+    <!-- tortelloni 6 -->
+    <g transform="translate(370,315) rotate(-5)">
+      <path d="M-25,0 Q-20,-18 0,-15 Q20,-18 25,0 Q15,8 0,5 Q-15,8 -25,0 Z"/>
+      <path d="M-12,-8 Q0,-3 12,-8" fill="none"/>
+    </g>
+    <!-- tortelloni 7 -->
+    <g transform="translate(300,260) rotate(12)">
+      <path d="M-25,0 Q-20,-18 0,-15 Q20,-18 25,0 Q15,8 0,5 Q-15,8 -25,0 Z"/>
+      <path d="M-12,-8 Q0,-3 12,-8" fill="none"/>
+    </g>
+  </g>
+
+  <!-- Pepper specks -->
+  <g fill="#000000">
+    <circle cx="220" cy="285" r="2"/>
+    <circle cx="260" cy="298" r="2"/>
+    <circle cx="295" cy="278" r="2"/>
+    <circle cx="335" cy="295" r="2"/>
+    <circle cx="375" cy="285" r="2"/>
+    <circle cx="410" cy="305" r="2"/>
+    <circle cx="245" cy="318" r="2"/>
+    <circle cx="320" cy="320" r="2"/>
+    <circle cx="385" cy="320" r="2"/>
+    <circle cx="280" cy="262" r="2"/>
+    <circle cx="345" cy="265" r="2"/>
+  </g>
+
+  <!-- Cheese sauce dribbles -->
+  <g fill="#f4d65a" stroke="#000000" stroke-width="1">
+    <circle cx="210" cy="320" r="3"/>
+    <circle cx="290" cy="325" r="3"/>
+    <circle cx="395" cy="265" r="3"/>
+  </g>
+
+  <!-- Steam -->
+  <g fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round">
+    <path d="M270,225 q-10,-15 0,-30 q10,-15 0,-30"/>
+    <path d="M335,225 q-10,-15 0,-30 q10,-15 0,-30"/>
+  </g>
+
+  <text x="300" y="440" text-anchor="middle" font-family="Comic Sans MS, cursive" font-size="26" fill="#000000">cacio e pepe tortelloni</text>
+</svg>

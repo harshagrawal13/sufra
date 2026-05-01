@@ -1,0 +1,76 @@
+<svg viewBox="0 0 600 500" xmlns="http://www.w3.org/2000/svg" style="background:#ffffff">
+  <rect width="600" height="500" fill="#ffffff"/>
+
+  <!-- Plate outer rim -->
+  <ellipse cx="300" cy="295" rx="240" ry="80" fill="#ffffff" stroke="#000000" stroke-width="3"/>
+  <!-- Plate inner well -->
+  <ellipse cx="300" cy="290" rx="190" ry="55" fill="#ffffff" stroke="#000000" stroke-width="3"/>
+
+  <!-- Pasta nest: yellow fill strokes -->
+  <g fill="none" stroke="#f4d65a" stroke-width="7" stroke-linecap="round">
+    <path d="M170,290 C220,265 280,315 340,280 C390,255 430,305 450,290"/>
+    <path d="M165,300 C215,280 270,260 330,295 C380,325 430,280 450,300"/>
+    <path d="M175,280 C230,305 290,270 350,305 C400,330 440,295 445,283"/>
+    <path d="M160,290 C210,315 270,280 320,310 C370,335 420,300 450,295"/>
+    <path d="M180,305 C240,280 290,315 340,285 C400,255 430,315 445,305"/>
+    <path d="M170,275 C210,260 260,295 310,270 C360,245 410,280 440,275"/>
+  </g>
+  <!-- Pasta black outlines -->
+  <g fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round">
+    <path d="M170,290 C220,265 280,315 340,280 C390,255 430,305 450,290"/>
+    <path d="M165,300 C215,280 270,260 330,295 C380,325 430,280 450,300"/>
+    <path d="M175,280 C230,305 290,270 350,305 C400,330 440,295 445,283"/>
+    <path d="M160,290 C210,315 270,280 320,310 C370,335 420,300 450,295"/>
+    <path d="M180,305 C240,280 290,315 340,285 C400,255 430,315 445,305"/>
+    <path d="M170,275 C210,260 260,295 310,270 C360,245 410,280 440,275"/>
+  </g>
+
+  <!-- Cheese flecks (pecorino) -->
+  <g fill="#f4d65a" stroke="#000000" stroke-width="1">
+    <circle cx="220" cy="285" r="3"/>
+    <circle cx="270" cy="300" r="2"/>
+    <circle cx="310" cy="280" r="3"/>
+    <circle cx="355" cy="295" r="2"/>
+    <circle cx="395" cy="290" r="3"/>
+    <circle cx="245" cy="305" r="2"/>
+    <circle cx="330" cy="310" r="2"/>
+    <circle cx="380" cy="275" r="2"/>
+  </g>
+
+  <!-- Black pepper specks -->
+  <g fill="#000000">
+    <circle cx="210" cy="295" r="2"/>
+    <circle cx="250" cy="283" r="2"/>
+    <circle cx="285" cy="305" r="2"/>
+    <circle cx="320" cy="290" r="2"/>
+    <circle cx="365" cy="310" r="2"/>
+    <circle cx="400" cy="280" r="2"/>
+    <circle cx="430" cy="300" r="2"/>
+    <circle cx="235" cy="275" r="2"/>
+    <circle cx="295" cy="270" r="2"/>
+    <circle cx="345" cy="283" r="2"/>
+    <circle cx="375" cy="303" r="2"/>
+    <circle cx="415" cy="285" r="2"/>
+    <circle cx="270" cy="315" r="2"/>
+    <circle cx="340" cy="300" r="2"/>
+  </g>
+
+  <!-- Fork on the side -->
+  <g stroke="#000000" stroke-width="2" fill="#cccccc">
+    <rect x="455" y="205" width="10" height="100" transform="rotate(20 460 255)"/>
+    <rect x="442" y="175" width="4" height="25" transform="rotate(20 444 187)"/>
+    <rect x="450" y="173" width="4" height="25" transform="rotate(20 452 185)"/>
+    <rect x="458" y="171" width="4" height="25" transform="rotate(20 460 183)"/>
+    <rect x="466" y="169" width="4" height="25" transform="rotate(20 468 181)"/>
+  </g>
+
+  <!-- Steam squiggles -->
+  <g fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round">
+    <path d="M260,235 q-10,-15 0,-30 q10,-15 0,-30"/>
+    <path d="M310,230 q-10,-15 0,-30 q10,-15 0,-30"/>
+    <path d="M360,235 q-10,-15 0,-30 q10,-15 0,-30"/>
+  </g>
+
+  <!-- Wobbly label -->
+  <text x="300" y="435" text-anchor="middle" font-family="Comic Sans MS, cursive" font-size="28" fill="#000000">cacio e pepe</text>
+</svg>
