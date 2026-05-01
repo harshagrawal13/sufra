@@ -8,6 +8,7 @@ export default function Gate({ onPass }) {
   const [pwd, setPwd] = React.useState('');
   const [error, setError] = React.useState(null);
   const [busy, setBusy] = React.useState(false);
+  const [hintOpen, setHintOpen] = React.useState(false);
 
   React.useEffect(() => {
     if (typeof window !== 'undefined' && sessionStorage.getItem('sufra-ok') === '1') {
@@ -71,7 +72,7 @@ export default function Gate({ onPass }) {
           color: palette.muted, fontSize: 14, lineHeight: 1.6,
           margin: '0 auto 32px', maxWidth: '36ch',
         }}>
-          You know it. He told you, exactly once, with a smirk.
+          You know it.
         </p>
 
         <input
@@ -103,6 +104,36 @@ export default function Gate({ onPass }) {
         <PrimaryButton palette={palette} type="submit" disabled={busy || !pwd} fullWidth>
           {busy ? 'Checking…' : 'Enter'}
         </PrimaryButton>
+
+        <button
+          type="button"
+          onClick={() => setHintOpen(v => !v)}
+          style={{
+            marginTop: 18, background: 'none', border: 'none',
+            color: palette.muted, fontSize: 11, letterSpacing: '0.14em',
+            textTransform: 'uppercase', fontFamily: 'inherit',
+            cursor: 'pointer', padding: '6px 8px',
+          }}
+        >
+          {hintOpen ? '× hide hint' : 'Need a hint?'}
+        </button>
+        <div
+          aria-hidden={!hintOpen}
+          style={{
+            maxHeight: hintOpen ? 120 : 0,
+            opacity: hintOpen ? 1 : 0,
+            overflow: 'hidden',
+            transition: 'max-height 0.4s ease, opacity 0.4s ease',
+          }}
+        >
+          <p style={{
+            fontFamily: '"Fraunces", serif', fontStyle: 'italic',
+            fontSize: 15, lineHeight: 1.5, color: palette.ink,
+            margin: '12px auto 0', maxWidth: '32ch',
+          }}>
+            It's your <span style={{ color: palette.accent }}>Disney+</span> password.
+          </p>
+        </div>
       </form>
     </div>
   );
