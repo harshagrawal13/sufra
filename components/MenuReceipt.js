@@ -27,7 +27,7 @@ export default function MenuReceipt({ palette, dishes, cart, addToCart, simranNa
             color: palette.muted, maxWidth: '40ch',
             margin: '28px auto 0',
           }}>
-            Built the kitchen, then built the website. Hard part's done — your move.
+            More excuses to meet me.
           </p>
         </div>
 
