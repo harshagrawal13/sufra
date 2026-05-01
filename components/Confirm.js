@@ -30,17 +30,10 @@ export default function ConfirmScreen({ palette, simranName, onTrack }) {
         </h1>
         <p style={{
           fontSize: 16, lineHeight: 1.65, color: palette.muted,
-          maxWidth: '46ch', margin: '0 auto 12px',
+          maxWidth: '46ch', margin: '0 auto 40px',
         }}>
-          You don't have to think about food again until I'm at the door. Keep
-          studying. I've got the rest. Hydrate. Don't reread the same paragraph
-          for the fourth time — move on, come back to it later.
-        </p>
-        <p style={{
-          fontFamily: '"Fraunces", serif', fontStyle: 'italic',
-          fontSize: 18, color: palette.ink, margin: '24px 0 40px',
-        }}>
-          You're going to do brilliantly. — H.
+          Our company policy is payment first. Gone were the days when you could
+          back down from dancing on <span style={{ color: palette.accent, fontFamily: '"Fraunces", serif', fontStyle: 'italic' }}>Baby Doll</span> ;)
         </p>
         <PrimaryButton palette={palette} onClick={onTrack}>
           Track the chef →
