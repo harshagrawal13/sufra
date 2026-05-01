@@ -1,7 +1,9 @@
 'use client';
+import React from 'react';
 import { DishSwatch } from './ui';
 
 export default function MenuReceipt({ palette, dishes, cart, addToCart, simranName }) {
+  const [eggOpen, setEggOpen] = React.useState(false);
   return (
     <div style={{ background: palette.bg, color: palette.ink, minHeight: '100vh' }}>
       <div className="sufra-receipt-wrap" style={{ maxWidth: 640, margin: '0 auto', padding: '64px 32px 100px' }}>
@@ -58,7 +60,35 @@ export default function MenuReceipt({ palette, dishes, cart, addToCart, simranNa
             letterSpacing: '0.14em', textTransform: 'uppercase',
             color: palette.muted,
           }}>
-            ── Simran, you cutie 🩷 ──
+            ── Simran, you cutie{' '}
+            <span
+              role="button"
+              tabIndex={0}
+              onClick={() => setEggOpen(v => !v)}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setEggOpen(v => !v); }}
+              style={{ cursor: 'pointer', userSelect: 'none' }}
+              aria-label="A little something"
+            >
+              🩷
+            </span>{' '}──
+          </div>
+          <div
+            style={{
+              maxHeight: eggOpen ? 200 : 0,
+              opacity: eggOpen ? 1 : 0,
+              overflow: 'hidden',
+              transition: 'max-height 0.5s ease, opacity 0.5s ease',
+              textAlign: 'center',
+            }}
+            aria-hidden={!eggOpen}
+          >
+            <p style={{
+              fontFamily: '"Fraunces", serif', fontStyle: 'italic',
+              fontSize: 16, lineHeight: 1.5, color: palette.ink,
+              margin: '20px auto 0', maxWidth: '32ch',
+            }}>
+              Just so you know, I will never stop trying to <span style={{ color: palette.accent }}>impress you</span>.
+            </p>
           </div>
         </div>
       </div>
