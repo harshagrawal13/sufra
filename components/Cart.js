@@ -2,8 +2,45 @@
 import React from 'react';
 import { DishSwatch, QtyStepper, PrimaryButton } from './ui';
 
-export default function CartScreen({ palette, dishes, cart, setCart, notes, setNotes, onCheckout, onNav, matcha, setMatcha }) {
+export default function CartScreen({ palette, dishes, cart, setCart, notes, setNotes, onPlace, onNav, matcha, setMatcha, simranName }) {
   const [matchaOpen, setMatchaOpen] = React.useState(false);
+  const [submitting, setSubmitting] = React.useState(false);
+  const [error, setError] = React.useState(null);
+
+  const placeOrder = async (matchaAnswer) => {
+    setSubmitting(true);
+    setError(null);
+    try {
+      const itemList = dishes.filter(d => cart[d.id] > 0).map(d => ({
+        id: d.id, name: d.name, qty: cart[d.id],
+        price: d.price, priceShort: d.priceShort,
+        note: notes[d.id] || '',
+      }));
+      const totalItems = itemList.reduce((s, it) => s + it.qty, 0);
+      const res = await fetch('/api/order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          simranName,
+          address: 'See chef notes / Find My',
+          when: 'asap',
+          phone: '',
+          items: itemList,
+          totalItems,
+          matcha: matchaAnswer === true ? 'yes' : matchaAnswer === false ? 'no' : 'not asked',
+        }),
+      });
+      if (!res.ok) {
+        const j = await res.json().catch(() => ({}));
+        throw new Error(j.error || "Couldn't reach the chef");
+      }
+      onPlace();
+    } catch (e) {
+      setError(e.message);
+    } finally {
+      setSubmitting(false);
+    }
+  };
   const items = dishes.filter(d => cart[d.id] > 0);
   const totalItems = items.reduce((s, d) => s + cart[d.id], 0);
 
@@ -23,7 +60,7 @@ export default function CartScreen({ palette, dishes, cart, setCart, notes, setN
             Your cart is <span style={{ color: palette.accent }}>empty</span>.
           </h2>
           <p style={{ color: palette.muted, fontSize: 15, lineHeight: 1.6, marginBottom: 32 }}>
-            Pick at least one thing. The chef gets sad otherwise.
+            Simran kuch toh order karle.
           </p>
           <PrimaryButton palette={palette} onClick={() => onNav('menu')}>
             Browse the menu
@@ -39,7 +76,7 @@ export default function CartScreen({ palette, dishes, cart, setCart, notes, setN
         <div style={{
           fontSize: 11, letterSpacing: '0.18em', textTransform: 'uppercase',
           color: palette.muted, marginBottom: 16,
-        }}>Step 01 / 03 · Your order</div>
+        }}>Your order</div>
         <h1 style={{
           fontFamily: '"Fraunces", serif', fontWeight: 300,
           fontSize: 'clamp(40px, 8vw, 72px)', lineHeight: 1,
@@ -160,15 +197,22 @@ export default function CartScreen({ palette, dishes, cart, setCart, notes, setN
                 {totalItems} {totalItems === 1 ? 'favor' : 'favors'}
               </span>
             </div>
+            {error && (
+              <div style={{
+                fontSize: 12, color: palette.accent, marginBottom: 12,
+                lineHeight: 1.5,
+              }}>{error}</div>
+            )}
             <PrimaryButton
               palette={palette}
+              disabled={submitting}
               onClick={() => {
                 if (matcha === null || matcha === undefined) setMatchaOpen(true);
-                else onCheckout();
+                else placeOrder(matcha);
               }}
               fullWidth
             >
-              Send to chef →
+              {submitting ? 'Sending…' : 'Send to chef →'}
             </PrimaryButton>
             <p style={{
               fontSize: 11, color: palette.muted, marginTop: 16,
@@ -186,7 +230,7 @@ export default function CartScreen({ palette, dishes, cart, setCart, notes, setN
           onPick={(yes) => {
             setMatcha(yes);
             setMatchaOpen(false);
-            onCheckout();
+            placeOrder(yes);
           }}
           onClose={() => setMatchaOpen(false)}
         />

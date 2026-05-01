@@ -5,7 +5,6 @@ import { Header } from '@/components/ui';
 import Gate from '@/components/Gate';
 import MenuReceipt from '@/components/MenuReceipt';
 import CartScreen from '@/components/Cart';
-import CheckoutScreen from '@/components/Checkout';
 import ConfirmScreen from '@/components/Confirm';
 import TrackScreen from '@/components/Track';
 
@@ -38,12 +37,8 @@ export default function Page() {
         <CartScreen palette={palette} dishes={MENU} cart={cart} setCart={setCart}
                     notes={notes} setNotes={setNotes}
                     matcha={matcha} setMatcha={setMatcha}
-                    onCheckout={() => setRoute('checkout')} onNav={setRoute} />
-      )}
-      {route === 'checkout' && (
-        <CheckoutScreen palette={palette} dishes={MENU} cart={cart} notes={notes}
-                        matcha={matcha} simranName={SIMRAN_NAME}
-                        onPlaced={onPlaced} onBack={() => setRoute('cart')} />
+                    simranName={SIMRAN_NAME}
+                    onPlace={onPlaced} onNav={setRoute} />
       )}
       {route === 'confirm' && (
         <ConfirmScreen palette={palette} simranName={SIMRAN_NAME}

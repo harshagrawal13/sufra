@@ -20,7 +20,7 @@ export default function ConfirmScreen({ palette, simranName, onTrack }) {
         <div style={{
           fontSize: 11, letterSpacing: '0.2em', textTransform: 'uppercase',
           color: palette.muted, marginBottom: 20,
-        }}>Order confirmed · Step 03 / 03</div>
+        }}>Order confirmed</div>
         <h1 style={{
           fontFamily: '"Fraunces", serif', fontWeight: 300,
           fontSize: 'clamp(36px, 8vw, 68px)', lineHeight: 1.05,
