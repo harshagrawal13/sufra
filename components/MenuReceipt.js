@@ -58,7 +58,7 @@ export default function MenuReceipt({ palette, dishes, cart, addToCart, simranNa
             letterSpacing: '0.14em', textTransform: 'uppercase',
             color: palette.muted,
           }}>
-            ── Simran you're a big cutie 🩷 ──
+            ── Simran, you cutie 🩷 ──
           </div>
         </div>
       </div>
