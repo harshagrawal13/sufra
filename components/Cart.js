@@ -1,0 +1,175 @@
+'use client';
+import { DishSwatch, QtyStepper, PrimaryButton } from './ui';
+
+export default function CartScreen({ palette, dishes, cart, setCart, notes, setNotes, onCheckout, onNav }) {
+  const items = dishes.filter(d => cart[d.id] > 0);
+  const totalItems = items.reduce((s, d) => s + cart[d.id], 0);
+
+  if (items.length === 0) {
+    return (
+      <div style={{
+        background: palette.bg, color: palette.ink, minHeight: 'calc(100vh - 89px)',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        padding: 32,
+      }}>
+        <div style={{ textAlign: 'center', maxWidth: 480 }}>
+          <h2 style={{
+            fontFamily: '"Fraunces", serif', fontStyle: 'italic',
+            fontWeight: 300, fontSize: 'clamp(36px, 9vw, 56px)', margin: '0 0 16px 0',
+            letterSpacing: '-0.02em',
+          }}>
+            Your cart is <span style={{ color: palette.accent }}>empty</span>.
+          </h2>
+          <p style={{ color: palette.muted, fontSize: 15, lineHeight: 1.6, marginBottom: 32 }}>
+            Pick at least one thing. The chef gets sad otherwise.
+          </p>
+          <PrimaryButton palette={palette} onClick={() => onNav('menu')}>
+            Browse the menu
+          </PrimaryButton>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div style={{ background: palette.bg, color: palette.ink, minHeight: 'calc(100vh - 89px)' }}>
+      <div className="sufra-page" style={{ maxWidth: 960, margin: '0 auto', padding: '48px 24px 100px' }}>
+        <div style={{
+          fontSize: 11, letterSpacing: '0.18em', textTransform: 'uppercase',
+          color: palette.muted, marginBottom: 16,
+        }}>Step 01 / 03 · Your order</div>
+        <h1 style={{
+          fontFamily: '"Fraunces", serif', fontWeight: 300,
+          fontSize: 'clamp(40px, 8vw, 72px)', lineHeight: 1,
+          letterSpacing: '-0.02em', margin: '0 0 40px 0',
+        }}>
+          Cart, <em style={{ fontStyle: 'italic', color: palette.accent }}>tabulated.</em>
+        </h1>
+
+        <div className="sufra-cart-grid" style={{
+          display: 'grid', gridTemplateColumns: '1fr 320px',
+          gap: 48, alignItems: 'start',
+        }}>
+          <div>
+            {items.map((d, i) => (
+              <div key={d.id} className="sufra-cart-row" style={{
+                display: 'grid', gridTemplateColumns: '88px 1fr auto',
+                gap: 20, padding: '24px 0',
+                borderTop: i === 0 ? `0.5px solid ${palette.line}` : 'none',
+                borderBottom: `0.5px solid ${palette.line}`,
+                alignItems: 'start',
+              }}>
+                <DishSwatch a={d.swatchA} b={d.swatchB} label={d.name} square />
+                <div style={{ minWidth: 0 }}>
+                  <h3 style={{
+                    fontFamily: '"Fraunces", serif', fontWeight: 400,
+                    fontSize: 20, margin: '0 0 6px 0', letterSpacing: '-0.01em',
+                  }}>{d.name}</h3>
+                  <div style={{
+                    fontFamily: '"Fraunces", serif', fontStyle: 'italic',
+                    fontSize: 15, color: palette.accent, marginBottom: 14,
+                  }}>{d.price} <span style={{ color: palette.muted, fontStyle: 'normal', fontFamily: 'inherit', fontSize: 12 }}>· per dish</span></div>
+                  <textarea
+                    value={notes[d.id] || ''}
+                    onChange={(e) => setNotes({ ...notes, [d.id]: e.target.value })}
+                    placeholder="Note to chef · spice level, allergies, secret request…"
+                    style={{
+                      width: '100%', minHeight: 36, padding: '10px 12px',
+                      border: `0.5px solid ${palette.line}`,
+                      background: palette.surface, color: palette.ink,
+                      fontFamily: 'inherit', fontSize: 13, lineHeight: 1.5,
+                      resize: 'vertical', borderRadius: 0, outline: 'none',
+                    }}
+                    onFocus={(e) => e.target.style.borderColor = palette.ink}
+                    onBlur={(e) => e.target.style.borderColor = palette.line}
+                  />
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 12 }}>
+                  <QtyStepper
+                    qty={cart[d.id]}
+                    onInc={() => setCart({ ...cart, [d.id]: cart[d.id] + 1 })}
+                    onDec={() => {
+                      const next = { ...cart };
+                      if (next[d.id] > 1) next[d.id]--;
+                      else delete next[d.id];
+                      setCart(next);
+                    }}
+                    palette={palette}
+                  />
+                  <button
+                    onClick={() => {
+                      const next = { ...cart }; delete next[d.id];
+                      setCart(next);
+                    }}
+                    style={{
+                      background: 'none', border: 'none',
+                      color: palette.muted, fontSize: 11,
+                      letterSpacing: '0.1em', textTransform: 'uppercase',
+                      cursor: 'pointer', fontFamily: 'inherit', padding: 0,
+                    }}>
+                    Remove
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <aside className="sufra-summary" style={{
+            background: palette.surface,
+            border: `0.5px solid ${palette.line}`,
+            padding: '32px 28px',
+            position: 'sticky', top: 24,
+          }}>
+            <div style={{
+              fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase',
+              color: palette.muted, marginBottom: 20,
+            }}>The bill</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 24 }}>
+              {items.map(d => (
+                <div key={d.id} style={{
+                  display: 'flex', justifyContent: 'space-between',
+                  fontSize: 13, gap: 12,
+                }}>
+                  <span style={{ color: palette.ink }}>
+                    {d.name} <span style={{ color: palette.muted }}>× {cart[d.id]}</span>
+                  </span>
+                  <span style={{
+                    fontFamily: '"Fraunces", serif', fontStyle: 'italic',
+                    color: palette.accent, fontSize: 13, textAlign: 'right',
+                    flex: '0 0 auto', maxWidth: '60%',
+                  }}>
+                    {cart[d.id] > 1 ? `${cart[d.id]} × ${d.priceShort}` : d.priceShort}
+                  </span>
+                </div>
+              ))}
+            </div>
+            <div style={{
+              borderTop: `0.5px dashed ${palette.line}`, paddingTop: 20,
+              display: 'flex', justifyContent: 'space-between', alignItems: 'baseline',
+              marginBottom: 28,
+            }}>
+              <span style={{ fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', color: palette.muted }}>
+                Total due
+              </span>
+              <span style={{
+                fontFamily: '"Fraunces", serif', fontStyle: 'italic',
+                fontSize: 22, color: palette.accent, fontWeight: 400,
+              }}>
+                {totalItems} {totalItems === 1 ? 'favor' : 'favors'}
+              </span>
+            </div>
+            <PrimaryButton palette={palette} onClick={onCheckout} fullWidth>
+              Send to chef →
+            </PrimaryButton>
+            <p style={{
+              fontSize: 11, color: palette.muted, marginTop: 16,
+              lineHeight: 1.5, textAlign: 'center',
+            }}>
+              Free delivery within walking distance.
+            </p>
+          </aside>
+        </div>
+      </div>
+    </div>
+  );
+}
