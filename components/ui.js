@@ -119,7 +119,7 @@ export function Header({ palette, onNav, route, cartCount }) {
         fontStyle: 'italic', color: palette.ink, letterSpacing: '-0.01em',
         padding: 0,
       }}>
-        Sufra<span style={{ color: palette.accent }}>.</span>
+        Harsh's Kitchen<span style={{ color: palette.accent }}>.</span>
       </button>
       <nav style={{ display: 'flex', gap: 20, alignItems: 'center', flexWrap: 'wrap' }}>
         <button style={link(route === 'menu')} onClick={() => onNav('menu')}>Menu</button>

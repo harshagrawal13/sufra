@@ -2,7 +2,7 @@
 import React from 'react';
 import { PrimaryButton } from './ui';
 
-export default function CheckoutScreen({ palette, dishes, cart, notes, simranName, onPlaced, onBack }) {
+export default function CheckoutScreen({ palette, dishes, cart, notes, matcha, simranName, onPlaced, onBack }) {
   const items = dishes.filter(d => cart[d.id] > 0);
   const totalItems = items.reduce((s, d) => s + cart[d.id], 0);
   const [address, setAddress] = React.useState('Hostel Block C, Room 214');
@@ -41,6 +41,7 @@ export default function CheckoutScreen({ palette, dishes, cart, notes, simranNam
             note: notes[d.id] || '',
           })),
           totalItems,
+          matcha: matcha === true ? 'yes' : matcha === false ? 'no' : 'not asked',
         }),
       });
       if (!res.ok) {
@@ -151,7 +152,7 @@ export default function CheckoutScreen({ palette, dishes, cart, notes, simranNam
                     fontFamily: '"Fraunces", serif', fontStyle: 'italic',
                     color: palette.accent, fontSize: 12,
                   }}>
-                    {cart[d.id] > 1 ? `${cart[d.id]} × ${d.priceShort}` : d.priceShort}
+                    💲 {cart[d.id] > 1 ? `${cart[d.id]} × ${d.priceShort}` : d.priceShort}
                   </div>
                 </div>
               ))}

@@ -1,7 +1,9 @@
 'use client';
+import React from 'react';
 import { DishSwatch, QtyStepper, PrimaryButton } from './ui';
 
-export default function CartScreen({ palette, dishes, cart, setCart, notes, setNotes, onCheckout, onNav }) {
+export default function CartScreen({ palette, dishes, cart, setCart, notes, setNotes, onCheckout, onNav, matcha, setMatcha }) {
+  const [matchaOpen, setMatchaOpen] = React.useState(false);
   const items = dishes.filter(d => cart[d.id] > 0);
   const totalItems = items.reduce((s, d) => s + cart[d.id], 0);
 
@@ -68,7 +70,7 @@ export default function CartScreen({ palette, dishes, cart, setCart, notes, setN
                   <div style={{
                     fontFamily: '"Fraunces", serif', fontStyle: 'italic',
                     fontSize: 15, color: palette.accent, marginBottom: 14,
-                  }}>{d.price} <span style={{ color: palette.muted, fontStyle: 'normal', fontFamily: 'inherit', fontSize: 12 }}>· per dish</span></div>
+                  }}>💲 {d.price} <span style={{ color: palette.muted, fontStyle: 'normal', fontFamily: 'inherit', fontSize: 12 }}>· per dish</span></div>
                   <textarea
                     value={notes[d.id] || ''}
                     onChange={(e) => setNotes({ ...notes, [d.id]: e.target.value })}
@@ -138,7 +140,7 @@ export default function CartScreen({ palette, dishes, cart, setCart, notes, setN
                     color: palette.accent, fontSize: 13, textAlign: 'right',
                     flex: '0 0 auto', maxWidth: '60%',
                   }}>
-                    {cart[d.id] > 1 ? `${cart[d.id]} × ${d.priceShort}` : d.priceShort}
+                    💲 {cart[d.id] > 1 ? `${cart[d.id]} × ${d.priceShort}` : d.priceShort}
                   </span>
                 </div>
               ))}
@@ -158,16 +160,97 @@ export default function CartScreen({ palette, dishes, cart, setCart, notes, setN
                 {totalItems} {totalItems === 1 ? 'favor' : 'favors'}
               </span>
             </div>
-            <PrimaryButton palette={palette} onClick={onCheckout} fullWidth>
+            <PrimaryButton
+              palette={palette}
+              onClick={() => {
+                if (matcha === null || matcha === undefined) setMatchaOpen(true);
+                else onCheckout();
+              }}
+              fullWidth
+            >
               Send to chef →
             </PrimaryButton>
             <p style={{
               fontSize: 11, color: palette.muted, marginTop: 16,
               lineHeight: 1.5, textAlign: 'center',
             }}>
-              Free delivery within walking distance.
+              Free delivery only for you 🙄
             </p>
           </aside>
+        </div>
+      </div>
+
+      {matchaOpen && (
+        <MatchaModal
+          palette={palette}
+          onPick={(yes) => {
+            setMatcha(yes);
+            setMatchaOpen(false);
+            onCheckout();
+          }}
+          onClose={() => setMatchaOpen(false)}
+        />
+      )}
+    </div>
+  );
+}
+
+function MatchaModal({ palette, onPick, onClose }) {
+  return (
+    <div
+      onClick={onClose}
+      style={{
+        position: 'fixed', inset: 0, background: 'rgba(28,26,22,0.55)',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        padding: 24, zIndex: 50,
+      }}
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          background: palette.surface, color: palette.ink,
+          border: `0.5px solid ${palette.line}`,
+          maxWidth: 420, width: '100%',
+          padding: '36px 28px', textAlign: 'center',
+          boxShadow: '0 20px 60px rgba(0,0,0,0.18)',
+        }}
+      >
+        <div style={{
+          fontSize: 11, letterSpacing: '0.18em', textTransform: 'uppercase',
+          color: palette.muted, marginBottom: 16,
+        }}>
+          One quick thing
+        </div>
+        <div style={{ fontSize: 40, marginBottom: 12 }}>🍵</div>
+        <h3 style={{
+          fontFamily: '"Fraunces", serif', fontWeight: 300, fontStyle: 'italic',
+          fontSize: 26, lineHeight: 1.2, margin: '0 0 24px 0', letterSpacing: '-0.01em',
+        }}>
+          Want Harsh to pick up a <span style={{ color: palette.accent }}>matcha</span> for you on the way?
+        </h3>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+          <button
+            onClick={() => onPick(false)}
+            style={{
+              appearance: 'none', border: `0.5px solid ${palette.ink}`,
+              background: 'transparent', color: palette.ink,
+              padding: '14px 18px', fontSize: 12, letterSpacing: '0.1em',
+              textTransform: 'uppercase', fontFamily: 'inherit', cursor: 'pointer',
+            }}
+          >
+            No thanks
+          </button>
+          <button
+            onClick={() => onPick(true)}
+            style={{
+              appearance: 'none', border: 'none',
+              background: palette.ink, color: palette.surface,
+              padding: '14px 18px', fontSize: 12, letterSpacing: '0.1em',
+              textTransform: 'uppercase', fontFamily: 'inherit', cursor: 'pointer',
+            }}
+          >
+            Yes please
+          </button>
         </div>
       </div>
     </div>

@@ -52,7 +52,7 @@ export default function Gate({ onPass }) {
           fontStyle: 'italic', color: palette.ink, marginBottom: 8,
           letterSpacing: '-0.01em',
         }}>
-          Sufra<span style={{ color: palette.accent }}>.</span>
+          Harsh's Kitchen<span style={{ color: palette.accent }}>.</span>
         </div>
         <div style={{
           fontSize: 11, letterSpacing: '0.2em', textTransform: 'uppercase',

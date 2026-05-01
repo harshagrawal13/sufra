@@ -1,8 +1,8 @@
 import './globals.css';
 
 export const metadata = {
-  title: 'Sufra · A menu for Simran',
-  description: 'A private menu for Simran, by Chef Harsh.',
+  title: "Harsh's Kitchen · A menu for Simran",
+  description: "A private menu for Simran, by Chef Harsh.",
 };
 
 export const viewport = {

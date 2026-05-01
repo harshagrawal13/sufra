@@ -11,7 +11,7 @@ export default function MenuReceipt({ palette, dishes, cart, addToCart, simranNa
             letterSpacing: '0.2em', textTransform: 'uppercase',
             color: palette.muted, marginBottom: 24,
           }}>
-            ── Sufra · Est. tonight ──
+            ── Harsh's Kitchen · Est. tonight ──
           </div>
           <h1 className="sufra-h1" style={{
             fontFamily: '"Fraunces", serif', fontWeight: 300,
@@ -25,7 +25,7 @@ export default function MenuReceipt({ palette, dishes, cart, addToCart, simranNa
             color: palette.muted, maxWidth: '40ch',
             margin: '28px auto 0',
           }}>
-            One night only. The chef takes any payment except actual money.
+            You better order something if I've spent so much time making this website.
           </p>
         </div>
 
@@ -83,7 +83,7 @@ function ReceiptDish({ dish, palette, qty, onAdd, last }) {
         <div style={{
           fontFamily: '"Fraunces", serif', fontStyle: 'italic',
           fontSize: 14, color: palette.accent,
-        }}>{dish.price}</div>
+        }}>💲 {dish.price}</div>
       </div>
       <button onClick={onAdd} style={{
         appearance: 'none', border: `0.5px solid ${palette.ink}`,

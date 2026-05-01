@@ -85,59 +85,18 @@ export default function TrackScreen({ palette, simranName, onReset, dishes, cart
           </div>
         </div>
 
-        <div className="sufra-track-grid" style={{
-          display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16,
+        <div style={{
+          background: palette.surface,
+          border: `0.5px solid ${palette.line}`,
+          padding: '40px 28px', textAlign: 'center',
         }}>
-          <div style={{
-            background: palette.surface,
-            border: `0.5px solid ${palette.line}`, padding: 24,
+          <p style={{
+            fontFamily: '"Fraunces", serif', fontStyle: 'italic',
+            fontSize: 'clamp(20px, 4vw, 28px)', lineHeight: 1.4,
+            color: palette.ink, margin: 0, letterSpacing: '-0.005em',
           }}>
-            <div style={{
-              fontSize: 10, letterSpacing: '0.16em', textTransform: 'uppercase',
-              color: palette.muted, marginBottom: 12,
-            }}>Note from the chef</div>
-            <p style={{
-              fontFamily: '"Fraunces", serif', fontStyle: 'italic',
-              fontSize: 18, lineHeight: 1.5, color: palette.ink, margin: 0,
-            }}>
-              "{STAGES[stageIdx].label === 'On the way'
-                ? `Two more turns and I'm there, ${simranName}. Open the door when you hear three knocks.`
-                : STAGES[stageIdx].label === 'At your door'
-                ? `I'm here. Hi.`
-                : `Everything's going to plan. Keep studying. — H.`}"
-            </p>
-          </div>
-          <div style={{
-            background: palette.surface,
-            border: `0.5px solid ${palette.line}`, padding: 24,
-          }}>
-            <div style={{
-              fontSize: 10, letterSpacing: '0.16em', textTransform: 'uppercase',
-              color: palette.muted, marginBottom: 12,
-            }}>Tonight's order</div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-              {items.length === 0 ? (
-                <div style={{ color: palette.muted, fontSize: 13 }}>
-                  No active order. <button onClick={onReset} style={{
-                    background: 'none', border: 'none', color: palette.accent,
-                    cursor: 'pointer', font: 'inherit', padding: 0,
-                    textDecoration: 'underline',
-                  }}>Place one →</button>
-                </div>
-              ) : items.map(d => (
-                <div key={d.id} style={{
-                  display: 'flex', justifyContent: 'space-between',
-                  fontSize: 13, gap: 12,
-                }}>
-                  <span>{d.name} {cart[d.id] > 1 && <span style={{ color: palette.muted }}>× {cart[d.id]}</span>}</span>
-                  <span style={{
-                    fontFamily: '"Fraunces", serif', fontStyle: 'italic',
-                    color: palette.accent, fontSize: 13, textAlign: 'right',
-                  }}>{d.priceShort}</span>
-                </div>
-              ))}
-            </div>
-          </div>
+            You already have my <span style={{ color: palette.accent }}>find my</span> ;)
+          </p>
         </div>
 
         {stageIdx === STAGES.length - 1 && (

@@ -16,6 +16,7 @@ export default function Page() {
   const [route, setRoute] = React.useState('menu');
   const [cart, setCart] = React.useState({});
   const [notes, setNotes] = React.useState({});
+  const [matcha, setMatcha] = React.useState(null);
   const palette = PALETTE;
 
   if (!authed) return <Gate onPass={() => setAuthed(true)} />;
@@ -23,7 +24,7 @@ export default function Page() {
   const cartCount = Object.values(cart).reduce((s, n) => s + n, 0);
   const addToCart = (id) => setCart(prev => ({ ...prev, [id]: (prev[id] || 0) + 1 }));
   const onPlaced = () => setRoute('confirm');
-  const onReset = () => { setCart({}); setNotes({}); setRoute('menu'); };
+  const onReset = () => { setCart({}); setNotes({}); setMatcha(null); setRoute('menu'); };
 
   return (
     <div style={{ background: palette.bg, color: palette.ink, minHeight: '100vh' }}>
@@ -36,11 +37,12 @@ export default function Page() {
       {route === 'cart' && (
         <CartScreen palette={palette} dishes={MENU} cart={cart} setCart={setCart}
                     notes={notes} setNotes={setNotes}
+                    matcha={matcha} setMatcha={setMatcha}
                     onCheckout={() => setRoute('checkout')} onNav={setRoute} />
       )}
       {route === 'checkout' && (
         <CheckoutScreen palette={palette} dishes={MENU} cart={cart} notes={notes}
-                        simranName={SIMRAN_NAME}
+                        matcha={matcha} simranName={SIMRAN_NAME}
                         onPlaced={onPlaced} onBack={() => setRoute('cart')} />
       )}
       {route === 'confirm' && (
@@ -58,7 +60,7 @@ export default function Page() {
         fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase',
         color: palette.muted, gap: 12, flexWrap: 'wrap',
       }}>
-        <span>Sufra · One-night-only · Chef Harsh</span>
+        <span>From Chef Harsh</span>
         <span>Made with love, butter & mild panic.</span>
       </footer>
     </div>
