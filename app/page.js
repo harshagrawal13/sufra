@@ -55,7 +55,7 @@ export default function Page() {
         fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase',
         color: palette.muted, gap: 12, flexWrap: 'wrap',
       }}>
-        <span>From Chef Harsh</span>
+        <span>From Chef Harsh &lt;&gt; Exclusively for Simran's Finals</span>
         <span>Made with love, butter & mild panic.</span>
       </footer>
     </div>
