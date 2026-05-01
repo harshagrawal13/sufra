@@ -69,8 +69,8 @@ export default function MenuReceipt({ palette, dishes, cart, addToCart, simranNa
 function ReceiptDish({ dish, palette, qty, onAdd, last }) {
   return (
     <div className="sufra-receipt-row" style={{
-      display: 'grid', gridTemplateColumns: '64px 1fr auto',
-      gap: 16, alignItems: 'center',
+      display: 'grid', gridTemplateColumns: '110px 1fr auto',
+      gap: 18, alignItems: 'center',
       padding: '20px 0',
       borderBottom: last ? 'none' : `0.5px dashed ${palette.line}`,
     }}>

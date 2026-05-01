@@ -20,7 +20,7 @@ input, textarea { font-family: inherit; }
   .sufra-receipt-wrap { padding: 40px 18px 80px !important; }
   .sufra-cart-grid { grid-template-columns: 1fr !important; gap: 28px !important; }
   .sufra-summary { position: static !important; }
-  .sufra-cart-row { grid-template-columns: 64px 1fr !important; }
+  .sufra-cart-row { grid-template-columns: 96px 1fr !important; }
   .sufra-cart-row > :last-child {
     grid-column: 1 / -1;
     flex-direction: row !important;
@@ -30,6 +30,6 @@ input, textarea { font-family: inherit; }
   .sufra-when { grid-template-columns: 1fr !important; }
   .sufra-stages { grid-template-columns: 1fr !important; gap: 14px !important; }
   .sufra-track-grid { grid-template-columns: 1fr !important; }
-  .sufra-receipt-row { grid-template-columns: 56px 1fr auto !important; gap: 12px !important; }
+  .sufra-receipt-row { grid-template-columns: 84px 1fr auto !important; gap: 14px !important; }
 }
 

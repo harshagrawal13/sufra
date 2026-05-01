@@ -1,5 +1,4 @@
 'use client';
-import React from 'react';
 import { PrimaryButton } from './ui';
 
 export default function TrackScreen({ palette, simranName, onReset, dishes, cart }) {
@@ -11,15 +10,8 @@ export default function TrackScreen({ palette, simranName, onReset, dishes, cart
     { k: 'enroute',  label: 'On the way',     sub: 'Chef is walking briskly with takeaway containers.' },
     { k: 'arrived',  label: 'At your door',   sub: "Open the door. Don't make him knock twice." },
   ];
-  const TOTAL_SECONDS = 90;
-  const [elapsed, setElapsed] = React.useState(0);
-  React.useEffect(() => {
-    const t = setInterval(() => setElapsed(e => Math.min(e + 1, TOTAL_SECONDS)), 1000);
-    return () => clearInterval(t);
-  }, []);
-  const progress = elapsed / TOTAL_SECONDS;
-  const stageIdx = Math.min(STAGES.length - 1, Math.floor(progress * STAGES.length));
-  const remaining = Math.max(0, 22 - Math.floor(progress * 22));
+  const progress = 0;
+  const stageIdx = 0;
 
   return (
     <div style={{ background: palette.bg, color: palette.ink, minHeight: 'calc(100vh - 89px)' }}>
@@ -90,6 +82,12 @@ export default function TrackScreen({ palette, simranName, onReset, dishes, cart
           border: `0.5px solid ${palette.line}`,
           padding: '40px 28px', textAlign: 'center',
         }}>
+          <div style={{
+            fontSize: 11, letterSpacing: '0.18em', textTransform: 'uppercase',
+            color: palette.muted, marginBottom: 16,
+          }}>
+            Tracker
+          </div>
           <p style={{
             fontFamily: '"Fraunces", serif', fontStyle: 'italic',
             fontSize: 'clamp(20px, 4vw, 28px)', lineHeight: 1.4,

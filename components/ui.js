@@ -9,7 +9,7 @@ export function DishSwatch({ a, b, label, image, height = 220, square = false, s
     aspectRatio: square ? '1 / 1' : (small ? '1 / 1' : 'auto'),
     height: square || small ? undefined : height,
     overflow: 'hidden',
-    background: image ? '#faf7f0' : a,
+    background: image ? 'transparent' : a,
   };
 
   if (image) {
@@ -22,7 +22,6 @@ export function DishSwatch({ a, b, label, image, height = 220, square = false, s
             position: 'absolute', inset: 0,
             width: '100%', height: '100%',
             objectFit: 'contain',
-            padding: small ? 6 : 12,
             display: 'block',
           }}
         />

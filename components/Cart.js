@@ -92,7 +92,7 @@ export default function CartScreen({ palette, dishes, cart, setCart, notes, setN
           <div>
             {items.map((d, i) => (
               <div key={d.id} className="sufra-cart-row" style={{
-                display: 'grid', gridTemplateColumns: '88px 1fr auto',
+                display: 'grid', gridTemplateColumns: '120px 1fr auto',
                 gap: 20, padding: '24px 0',
                 borderTop: i === 0 ? `0.5px solid ${palette.line}` : 'none',
                 borderBottom: `0.5px solid ${palette.line}`,
