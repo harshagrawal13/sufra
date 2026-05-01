@@ -18,7 +18,7 @@ export default function MenuReceipt({ palette, dishes, cart, addToCart, simranNa
             fontSize: 'clamp(40px, 9vw, 64px)', lineHeight: 1, letterSpacing: '-0.03em',
             margin: 0, fontStyle: 'italic',
           }}>
-            For {simranName},<br/>with love & alfredo.
+            For {simranName}, with Love & Cheese.
           </h1>
           <p style={{
             marginTop: 28, fontSize: 14, lineHeight: 1.7,
