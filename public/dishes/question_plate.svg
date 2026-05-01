@@ -1,0 +1,17 @@
+<svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Plate -->
+  <ellipse cx="250" cy="370" rx="200" ry="60" fill="#ffffff" stroke="#000000" stroke-width="3"/>
+  <ellipse cx="250" cy="365" rx="160" ry="42" fill="#ffffff" stroke="#000000" stroke-width="3"/>
+
+  <!-- Question mark sitting on plate -->
+  <text x="250" y="320" text-anchor="middle" font-family="Comic Sans MS, cursive" font-size="240" font-weight="bold" fill="#000000" stroke="#000000" stroke-width="2">?</text>
+
+  <!-- Steam -->
+  <g fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round">
+    <path d="M180,140 q-10,-15 0,-30 q10,-15 0,-30"/>
+    <path d="M320,140 q-10,-15 0,-30 q10,-15 0,-30"/>
+  </g>
+
+  <text x="250" y="465" text-anchor="middle" font-family="Comic Sans MS, cursive" font-size="22" fill="#000000">surprise me</text>
+</svg>

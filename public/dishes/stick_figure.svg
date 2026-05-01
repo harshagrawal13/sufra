@@ -1,0 +1,28 @@
+<svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Head -->
+  <circle cx="250" cy="140" r="50" fill="#ffffff" stroke="#000000" stroke-width="3"/>
+
+  <!-- Eyes -->
+  <circle cx="232" cy="132" r="4" fill="#000000"/>
+  <circle cx="268" cy="132" r="4" fill="#000000"/>
+
+  <!-- Smile -->
+  <path d="M225,155 Q250,172 275,155" fill="none" stroke="#000000" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Body -->
+  <line x1="250" y1="190" x2="250" y2="340" stroke="#000000" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Arms -->
+  <line x1="250" y1="230" x2="180" y2="265" stroke="#000000" stroke-width="3" stroke-linecap="round"/>
+  <line x1="250" y1="230" x2="320" y2="265" stroke="#000000" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Legs -->
+  <line x1="250" y1="340" x2="200" y2="430" stroke="#000000" stroke-width="3" stroke-linecap="round"/>
+  <line x1="250" y1="340" x2="300" y2="430" stroke="#000000" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Ground line -->
+  <line x1="120" y1="445" x2="380" y2="445" stroke="#000000" stroke-width="2"/>
+
+  <text x="250" y="478" text-anchor="middle" font-family="Comic Sans MS, cursive" font-size="22" fill="#000000">hi :)</text>
+</svg>
