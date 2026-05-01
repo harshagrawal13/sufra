@@ -6,5 +6,6 @@ node_modules
 design.gz
 design/
 sufra/
+graphics/
 *.log
 .DS_Store
