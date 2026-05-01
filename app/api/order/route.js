@@ -1,6 +1,6 @@
 export const runtime = 'nodejs';
 
-function buildMessage(order) {
+function buildText(order) {
   const { simranName, address, when, phone, items, totalItems } = order;
   const whenLabel = ({
     asap: 'ASAP',
@@ -9,71 +9,80 @@ function buildMessage(order) {
   })[when] || when;
 
   const lines = [];
-  lines.push('🍽️ *New Sufra order*');
+  lines.push('New Sufra order');
   lines.push('');
-  lines.push(`*From:* ${simranName}`);
-  lines.push(`*Drop-off:* ${address}`);
-  lines.push(`*When:* ${whenLabel}`);
-  if (phone) lines.push(`*Phone:* ${phone}`);
+  lines.push(`From:     ${simranName}`);
+  lines.push(`Drop-off: ${address}`);
+  lines.push(`When:     ${whenLabel}`);
+  if (phone) lines.push(`Phone:    ${phone}`);
   lines.push('');
-  lines.push('*Items:*');
+  lines.push('Items:');
   for (const it of items) {
-    lines.push(`• ${it.name}${it.qty > 1 ? ` × ${it.qty}` : ''} — _${it.priceShort}_`);
-    if (it.note) lines.push(`   ↳ note: ${it.note}`);
+    lines.push(`  • ${it.name}${it.qty > 1 ? ` × ${it.qty}` : ''} — ${it.priceShort}`);
+    if (it.note) lines.push(`      note: ${it.note}`);
   }
   lines.push('');
-  lines.push(`*Total:* ${totalItems} ${totalItems === 1 ? 'favor' : 'favors'}`);
+  lines.push(`Total: ${totalItems} ${totalItems === 1 ? 'favor' : 'favors'}`);
   lines.push('');
-  lines.push('— sent from sufra.app');
+  lines.push('— sufra');
   return lines.join('\n');
 }
 
-async function sendViaWhatsAppCloud(message) {
-  const token = process.env.WHATSAPP_TOKEN;
-  const phoneId = process.env.WHATSAPP_PHONE_NUMBER_ID;
-  const to = process.env.WHATSAPP_RECIPIENT;
-  if (!token || !phoneId || !to) return null;
+function buildHtml(order) {
+  const { simranName, address, when, phone, items, totalItems } = order;
+  const whenLabel = ({
+    asap: 'ASAP',
+    'study-break': 'After this chapter',
+    late: 'Late-night, post-cram',
+  })[when] || when;
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c]));
 
-  const res = await fetch(`https://graph.facebook.com/v20.0/${phoneId}/messages`, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      messaging_product: 'whatsapp',
-      to,
-      type: 'text',
-      text: { body: message, preview_url: false },
-    }),
-  });
-  if (!res.ok) {
-    const errText = await res.text();
-    throw new Error(`WhatsApp Cloud API error: ${res.status} ${errText}`);
-  }
-  return await res.json();
+  const itemRows = items.map(it => `
+    <tr>
+      <td style="padding:8px 0;border-bottom:1px dashed #ddd;">
+        <div style="font-family:Georgia,serif;font-size:16px;color:#1c1a16;">${esc(it.name)}${it.qty > 1 ? ` × ${it.qty}` : ''}</div>
+        <div style="font-family:Georgia,serif;font-style:italic;color:#c0392b;font-size:14px;">${esc(it.priceShort)}</div>
+        ${it.note ? `<div style="font-size:12px;color:#6b665c;margin-top:4px;">note: ${esc(it.note)}</div>` : ''}
+      </td>
+    </tr>`).join('');
+
+  return `<!doctype html><html><body style="margin:0;padding:24px;background:#f4f0e8;font-family:-apple-system,Inter,Helvetica,Arial,sans-serif;color:#1c1a16;">
+    <div style="max-width:560px;margin:0 auto;background:#faf7f0;padding:32px;border:0.5px solid #1c1a1622;">
+      <div style="font-family:Georgia,serif;font-style:italic;font-size:24px;margin-bottom:4px;">Sufra<span style="color:#c0392b;">.</span></div>
+      <div style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#6b665c;margin-bottom:24px;">New order · For Chef Harsh</div>
+      <table style="width:100%;border-collapse:collapse;font-size:14px;">
+        <tr><td style="padding:6px 0;color:#6b665c;width:90px;">From</td><td>${esc(simranName)}</td></tr>
+        <tr><td style="padding:6px 0;color:#6b665c;">Drop-off</td><td>${esc(address)}</td></tr>
+        <tr><td style="padding:6px 0;color:#6b665c;">When</td><td>${esc(whenLabel)}</td></tr>
+        ${phone ? `<tr><td style="padding:6px 0;color:#6b665c;">Phone</td><td>${esc(phone)}</td></tr>` : ''}
+      </table>
+      <div style="font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#6b665c;margin:24px 0 8px;">Items</div>
+      <table style="width:100%;border-collapse:collapse;">${itemRows}</table>
+      <div style="margin-top:24px;padding-top:16px;border-top:1px dashed #1c1a1622;display:flex;justify-content:space-between;">
+        <span style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#6b665c;">Total</span>
+        <span style="font-family:Georgia,serif;font-style:italic;color:#c0392b;font-size:18px;">${totalItems} ${totalItems === 1 ? 'favor' : 'favors'}</span>
+      </div>
+    </div>
+  </body></html>`;
 }
 
-async function sendViaTwilio(message) {
-  const sid = process.env.TWILIO_ACCOUNT_SID;
-  const token = process.env.TWILIO_AUTH_TOKEN;
-  const from = process.env.TWILIO_FROM;
-  const to = process.env.TWILIO_TO;
-  if (!sid || !token || !from || !to) return null;
+async function sendViaResend({ subject, text, html }) {
+  const key = process.env.RESEND_API_KEY;
+  const to = process.env.ORDER_EMAIL_TO;
+  const from = process.env.ORDER_EMAIL_FROM || 'Sufra <onboarding@resend.dev>';
+  if (!key || !to) return null;
 
-  const auth = Buffer.from(`${sid}:${token}`).toString('base64');
-  const body = new URLSearchParams({ From: from, To: to, Body: message });
-  const res = await fetch(`https://api.twilio.com/2010-04-01/Accounts/${sid}/Messages.json`, {
+  const res = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: {
-      Authorization: `Basic ${auth}`,
-      'Content-Type': 'application/x-www-form-urlencoded',
+      Authorization: `Bearer ${key}`,
+      'Content-Type': 'application/json',
     },
-    body,
+    body: JSON.stringify({ from, to, subject, text, html }),
   });
   if (!res.ok) {
     const errText = await res.text();
-    throw new Error(`Twilio error: ${res.status} ${errText}`);
+    throw new Error(`Resend error: ${res.status} ${errText}`);
   }
   return await res.json();
 }
@@ -85,22 +94,19 @@ export async function POST(req) {
   } catch {
     return Response.json({ error: 'Bad payload' }, { status: 400 });
   }
-
   if (!order?.items?.length) {
     return Response.json({ error: 'Cart is empty' }, { status: 400 });
   }
 
-  const message = buildMessage(order);
+  const subject = `Sufra · new order from ${order.simranName} (${order.totalItems} ${order.totalItems === 1 ? 'favor' : 'favors'})`;
+  const text = buildText(order);
+  const html = buildHtml(order);
 
   try {
-    const cloud = await sendViaWhatsAppCloud(message);
-    if (cloud) return Response.json({ ok: true, via: 'whatsapp-cloud' });
+    const sent = await sendViaResend({ subject, text, html });
+    if (sent) return Response.json({ ok: true, via: 'resend' });
 
-    const twilio = await sendViaTwilio(message);
-    if (twilio) return Response.json({ ok: true, via: 'twilio' });
-
-    // No provider configured — log the message so order isn't silently lost
-    console.log('[sufra order — no WhatsApp provider configured]\n' + message);
+    console.log('[sufra order — no email provider configured]\n' + text);
     return Response.json({ ok: true, via: 'console' });
   } catch (e) {
     console.error('Sufra order send failed:', e);
